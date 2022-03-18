@@ -9,6 +9,10 @@ workloads=['read', 'write', 'randread', 'randwrite', 'rw', 'randrw']
 blocksizes=['4k','64k','256k', '1M']
 queuedepths=['1','4','16','32']
 
+def get_index(base,selector):
+    fields = base.split(";")
+    return fields.index(selector)
+
 
 with open(outfn,"w") as outf:
 
@@ -16,7 +20,6 @@ with open(outfn,"w") as outf:
     outf.write(header)
     print(header)
     cmd_base = ['sudo','fio', '--ioengine=aio', '--direct=1', '--time_based', '--runtime=20', '--output-format=terse']
-
 
     for wl in workloads:
         for bs in blocksizes:
